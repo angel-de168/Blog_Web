@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS app_user (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(64) NOT NULL UNIQUE,
+  email VARCHAR(128) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  avatar VARCHAR(255) DEFAULT NULL,
+  bio VARCHAR(255) DEFAULT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS note (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  title VARCHAR(150) NOT NULL,
+  content TEXT NOT NULL,
+  category_id BIGINT DEFAULT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'LEARNING',
+  tags VARCHAR(500) DEFAULT '',
+  cover_image VARCHAR(255) DEFAULT NULL,
+  read_count BIGINT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX idx_note_user_updated (user_id, updated_at),
+  CONSTRAINT fk_note_user FOREIGN KEY (user_id) REFERENCES app_user(id)
+);
