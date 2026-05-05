@@ -127,6 +127,34 @@ export interface FollowUserItem {
 export interface FollowStatusResult {
   followed: boolean
 }
+
+export interface PrivateSessionItem {
+  id: number
+  peerUserId: number
+  peerUsername: string
+  peerAvatar?: string | null
+  peerBio?: string | null
+  lastMessage?: string | null
+  lastMessageAt?: string | null
+}
+
+export interface PrivateMessageItem {
+  id: number
+  sessionId: number
+  senderUserId: number
+  senderUsername: string
+  senderAvatar?: string | null
+  content: string
+  createdAt: string
+}
+
+export interface CreateSessionPayload {
+  targetUserId: number
+}
+
+export interface SendPrivateMessagePayload {
+  content: string
+}
 export interface PagedResult<T> {
   records: T[]
   total: number

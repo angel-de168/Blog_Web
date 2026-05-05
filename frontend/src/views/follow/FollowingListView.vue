@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchFollowing, unfollowUser } from '../../api/follow'
+import { createOrGetSession } from '../../api/message'
 import type { FollowUserItem } from '../../types'
 
 const router = useRouter()
@@ -44,6 +45,16 @@ async function removeFollow(targetUserId: number) {
       query.page -= 1
     }
     await loadData()
+  } catch (e) {
+    error.value = (e as Error).message
+  }
+}
+
+async function openMessage(targetUserId: number) {
+  error.value = ''
+  try {
+    const session = await createOrGetSession({ targetUserId })
+    void router.push(`/messages/${session.id}`)
   } catch (e) {
     error.value = (e as Error).message
   }
@@ -100,7 +111,10 @@ onMounted(loadData)
                   <p class="moment-author-name">{{ item.username }}</p>
                   <p class="sub">{{ item.bio || '这个人还没有留下简介。' }}</p>
                 </div>
-                <button class="danger-btn" type="button" @click="removeFollow(item.id)">取关</button>
+                <div class="row small-gap">
+                  <button class="ghost-btn" type="button" @click="openMessage(item.id)">发私信</button>
+                  <button class="danger-btn" type="button" @click="removeFollow(item.id)">取关</button>
+                </div>
               </div>
             </div>
           </div>

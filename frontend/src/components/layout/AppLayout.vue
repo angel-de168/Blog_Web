@@ -19,6 +19,7 @@ const menuItems = [
   { label: '博客', path: '/notes', tip: '写下今天收获', public: true },
   { label: '随笔', path: '/moments', tip: '随时记一段心情', public: true },
   { label: '我的关注', path: '/following', tip: '看看你在关注谁', public: false },
+  { label: '私信', path: '/messages', tip: '和朋友聊聊近况', public: false },
   { label: '成长图谱', path: '/growth', tip: '回看学习轨迹', public: true }
 ]
 
@@ -29,7 +30,7 @@ const isHomeStyledRoute = computed(() => {
   if (route.path === '/') {
     return true
   }
-  if (route.path === '/notes' || route.path === '/moments' || route.path === '/growth' || route.path === '/following') {
+  if (route.path === '/notes' || route.path === '/moments' || route.path === '/growth' || route.path === '/following' || route.path === '/messages') {
     return true
   }
   return /^\/notes\/\d+$/.test(route.path)

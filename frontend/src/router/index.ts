@@ -65,6 +65,16 @@ const router = createRouter({
       component: () => import('../views/follow/FollowerListView.vue')
     },
     {
+      path: '/messages',
+      name: 'messages',
+      component: () => import('../views/message/MessageSessionListView.vue')
+    },
+    {
+      path: '/messages/:id',
+      name: 'message-detail',
+      component: () => import('../views/message/MessageSessionDetailView.vue')
+    },
+    {
       path: '/growth',
       name: 'growth',
       component: () => import('../views/growth/GrowthDashboardView.vue'),
